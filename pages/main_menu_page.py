@@ -4,16 +4,20 @@ from selenium.webdriver.common.by import By
 
 
 class MainMenuPage(Page):
-    MAIN_MENU = (By.CSS_SELECTOR, "[class='menu-button-block link-block link-block-2 link-block-3 link-block-4 w-inline-block w--current']")
+    MAIN_MENU = (By.CSS_SELECTOR, 'div[class*="menu_grid"] a[href="/main-menu"]')
     EN_LANG_SELECTION = (By.CSS_SELECTOR, "#w-dropdown-toggle-0")
-    RU_LANG_SELECTION = (By. CSS_SELECTOR, "[lang='ru']")
-    RU_LANG_TXT = (By. CSS_SELECTOR, "//h1[text()='Главное меню']")
+    RU_LANG_SELECTION = (By. CSS_SELECTOR, "[class='wg-dropdown-1-link-2 w-dropdown-link']")
+    RU_LANG_TXT = (By. XPATH, "//h1[text()='Главное меню']")
 
     def click_main_menu(self):
         self.wait_and_click(*self.MAIN_MENU)
 
     def select_en_language(self):
-        self.wait_and_click(*self.EN_LANG_SELECTION)
+        hover_dd = self.find_element(*self.EN_LANG_SELECTION)
+
+        actions = ActionChains(self.driver)
+        actions.move_to_element(hover_dd)
+        actions.perform()
 
     def select_ru_language(self):
         self.wait_and_click(*self.RU_LANG_SELECTION)
