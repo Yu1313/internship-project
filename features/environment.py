@@ -1,3 +1,4 @@
+from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
@@ -17,9 +18,9 @@ def browser_init(context, scenario_name):
     # service = Service(driver_path)
     # context.driver = webdriver.Chrome(service=service)
 
-    driver_path = GeckoDriverManager().install()
-    service = Service(driver_path)
-    context.driver = webdriver.Firefox(service=service)
+    # driver_path = GeckoDriverManager().install()
+    # service = Service(driver_path)
+    # context.driver = webdriver.Firefox(service=service)
 
     ## HEADLESS MODE ####
     # options = webdriver.ChromeOptions()
@@ -38,6 +39,22 @@ def browser_init(context, scenario_name):
     #     options=options,
     #     service=service
     # )
+
+    # ### BROWSERSTACK ###
+    bs_user = 'yus_v62daS'
+    bs_key = 'V2UYdzzPtNCZJUCxB5qW'
+    url = f'http://{bs_user}:{bs_key}@hub-cloud.browserstack.com/wd/hub'
+    options = Options()
+    bstack_options = {
+        'os': 'OS X',
+        'osVersion': 'Ventura',
+        'browserName': 'Safari',
+        "browserVersion": "16.5",
+        "seleniumVersion": "4.21.0",
+        'sessionName': scenario_name
+    }
+    options.set_capability('bstack:options', bstack_options)
+    context.driver = webdriver.Remote(command_executor=url, options=options)
 
     context.driver.maximize_window()
     context.driver.implicitly_wait(4)
