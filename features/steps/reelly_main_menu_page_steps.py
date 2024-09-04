@@ -11,6 +11,7 @@ def click_main_menu_nav(context):
 
 @when('Click EN language')
 def click_en_language(context):
+    sleep(3)
     context.app.main_menu_page.select_en_language()
 
 
@@ -21,7 +22,7 @@ def click_ru_language(context):
 
 @then('Verify language is changed')
 def verify_language_is_changed(context):
-    sleep(1)
+    sleep(2)
     context.app.main_menu_page.verify_ru_language_change()
 
 
