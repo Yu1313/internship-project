@@ -1,6 +1,5 @@
 from selenium.webdriver.common.by import By
 from behave import given, when, then
-from time import sleep
 
 
 INPUT_EMAIL = (By.CSS_SELECTOR, "[wized='emailInput']")
@@ -24,7 +23,6 @@ def click_signin_button(context):
 
 @then('Verify user is logged in')
 def verify_user_is_logged_in(context):
-    sleep(2)
     context.app.signin_page.verify_logged_in()
 
 

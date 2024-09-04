@@ -1,6 +1,7 @@
 from selenium.webdriver.common.action_chains import ActionChains
 from pages.base_page import Page
 from selenium.webdriver.common.by import By
+from time import sleep
 
 
 class MainMenuPage(Page):
@@ -18,6 +19,7 @@ class MainMenuPage(Page):
         actions = ActionChains(self.driver)
         actions.move_to_element(hover_dd)
         actions.perform()
+        sleep(3)
 
     def select_ru_language(self):
         self.wait_and_click(*self.RU_LANG_SELECTION)
@@ -25,6 +27,7 @@ class MainMenuPage(Page):
     def verify_ru_language_change(self):
         self.wait_for_element_appear(*self.RU_LANG_TXT)
         self.verify_text('Главное меню', *self.RU_LANG_TXT)
+
 
 
 

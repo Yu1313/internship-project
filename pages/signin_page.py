@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from pages.base_page import Page
+from time import sleep
 
 
 class SigninPage(Page):
@@ -16,6 +17,8 @@ class SigninPage(Page):
 
     def click_continue_btn(self):
         self.wait_and_click(*self.CONTINUE_BTN)
+        sleep(3)
 
     def verify_logged_in(self):
         self.verify_url('https://soft.reelly.io/')
+
