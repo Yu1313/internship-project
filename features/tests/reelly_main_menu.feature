@@ -1,6 +1,6 @@
 # Created by yusuf at 8/29/2024
 Feature: Test for Main menu
-
+  @smoke
   Scenario: Verify language can be changed to Russian
     Given Open Reelly signin page
     When Enter correct email and password combination

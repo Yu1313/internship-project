@@ -31,32 +31,32 @@ def browser_init(context, scenario_name):
     #     service=service
     # )
 
-    # options = webdriver.FirefoxOptions()
-    # options.add_argument('--headless')
-    # options.add_argument('--window-size=1920x1080')
-    # service = Service(GeckoDriverManager().install())
-    # context.driver = webdriver.Firefox(
-    #     options=options,
-    #     service=service
-    # )
+    options = webdriver.FirefoxOptions()
+    options.add_argument('--headless')
+    options.add_argument('--window-size=1920x1080')
+    service = Service(GeckoDriverManager().install())
+    context.driver = webdriver.Firefox(
+        options=options,
+        service=service
+    )
 
     # ### BROWSERSTACK ###
-    bs_user = 'yus_v62daS'
-    bs_key = 'V2UYdzzPtNCZJUCxB5qW'
-    url = f'http://{bs_user}:{bs_key}@hub-cloud.browserstack.com/wd/hub'
-    options = Options()
-    bstack_options = {
-        'os': 'OS X',
-        'osVersion': 'Ventura',
-        'browserName': 'Safari',
-        "browserVersion": "16.5",
-        "seleniumVersion": "4.21.0",
-        'sessionName': scenario_name
-    }
-    options.set_capability('bstack:options', bstack_options)
-    context.driver = webdriver.Remote(command_executor=url, options=options)
+    # bs_user = 'yus_v62daS'
+    # bs_key = 'V2UYdzzPtNCZJUCxB5qW'
+    # url = f'http://{bs_user}:{bs_key}@hub-cloud.browserstack.com/wd/hub'
+    # options = Options()
+    # bstack_options = {
+    #     'os': 'OS X',
+    #     'osVersion': 'Ventura',
+    #     'browserName': 'Safari',
+    #     "browserVersion": "16.5",
+    #     "seleniumVersion": "4.21.0",
+    #     'sessionName': scenario_name
+    # }
+    # options.set_capability('bstack:options', bstack_options)
+    # context.driver = webdriver.Remote(command_executor=url, options=options)
 
-    context.driver.maximize_window()
+    # context.driver.maximize_window()
     context.driver.implicitly_wait(4)
     context.driver.wait = WebDriverWait(context.driver, 4)
     context.app = Application(context.driver)
