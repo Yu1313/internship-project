@@ -14,6 +14,16 @@ def browser_init(context, scenario_name):
     """
     :param context: Behave context
     """
+    # # Mobile emulation, Setup Chrome options for mobile emulation
+    # chrome_options = Options()
+    # mobile_emulation = {"deviceName": "iPhone 12 Pro"}
+    # chrome_options.add_experimental_option("mobileEmulation", mobile_emulation)
+    #
+    # # Initialize Chrome WebDriver with mobile emulation
+    # driver_path = ChromeDriverManager().install()
+    # service = Service(driver_path)
+    # context.driver = webdriver.Chrome(service=service, options=chrome_options)
+
     # driver_path = ChromeDriverManager().install()
     # service = Service(driver_path)
     # context.driver = webdriver.Chrome(service=service)
@@ -31,16 +41,17 @@ def browser_init(context, scenario_name):
     #     service=service
     # )
 
-    options = webdriver.FirefoxOptions()
-    options.add_argument('--headless')
-    options.add_argument('--window-size=1920x1080')
-    service = Service(GeckoDriverManager().install())
-    context.driver = webdriver.Firefox(
-        options=options,
-        service=service
-    )
+    # options = webdriver.FirefoxOptions()
+    # options.add_argument('--headless')
+    # options.add_argument('--window-size=1920x1080')
+    # service = Service(GeckoDriverManager().install())
+    # context.driver = webdriver.Firefox(
+    #     options=options,
+    #     service=service
+    # )
 
     # ### BROWSERSTACK ###
+    # # Web Config
     # bs_user = 'yus_v62daS'
     # bs_key = 'V2UYdzzPtNCZJUCxB5qW'
     # url = f'http://{bs_user}:{bs_key}@hub-cloud.browserstack.com/wd/hub'
@@ -56,7 +67,21 @@ def browser_init(context, scenario_name):
     # options.set_capability('bstack:options', bstack_options)
     # context.driver = webdriver.Remote(command_executor=url, options=options)
 
-    # context.driver.maximize_window()
+    # Mobile config
+    bs_user = 'yus_v62daS'
+    bs_key = 'V2UYdzzPtNCZJUCxB5qW'
+    url = f'http://{bs_user}:{bs_key}@hub-cloud.browserstack.com/wd/hub'
+    options = Options()
+    bstack_options = {
+        'osVersion': '17',
+        'deviceName': "iPhone 12",
+        'browserName': 'Safari',
+        'sessionName': scenario_name
+    }
+    options.set_capability('bstack:options', bstack_options)
+    context.driver = webdriver.Remote(command_executor=url, options=options)
+
+    context.driver.maximize_window()
     context.driver.implicitly_wait(4)
     context.driver.wait = WebDriverWait(context.driver, 4)
     context.app = Application(context.driver)
